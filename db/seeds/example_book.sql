@@ -1,18 +1,21 @@
 -- Example book import script
--- "Le Tombeau du Vampire" - sample paragraphs for demonstration
--- Import this via the admin panel SQL import feature
+-- A minimal 9-paragraph demo book to validate the import mechanism.
+-- Import this via the admin panel SQL import feature.
+--
+-- Note: For the complete "Le Tombeau du Vampire" book (290 paragraphs),
+-- use db/seeds/tombeau_vampire.sql instead.
 
 -- First, ensure the book exists
 INSERT INTO books (game_system_id, title, slug, description, author, is_published)
-SELECT gs.id, 'Le Tombeau du Vampire', 'tombeau-vampire',
-       'Une aventure dans un château hanté où vous devrez affronter le seigneur des ténèbres.',
+SELECT gs.id, 'Le Tombeau du Vampire (démo)', 'tombeau-vampire-demo',
+       'Version de démonstration : aventure de 9 paragraphes dans un château hanté.',
        'Exemple', TRUE
 FROM game_systems gs WHERE gs.slug = 'ehp'
 ON CONFLICT (slug) DO NOTHING;
 
 -- Paragraph 1 - Introduction
 INSERT INTO paragraphs (book_id, number, content) VALUES (
-    (SELECT id FROM books WHERE slug = 'tombeau-vampire'),
+    (SELECT id FROM books WHERE slug = 'tombeau-vampire-demo'),
     1,
     'Vous vous trouvez à l''orée d''une forêt sombre. Devant vous, un chemin mène vers un sinistre château. '
     'La nuit tombe et vous devez trouver un abri. Vous pouvez tenter d''entrer dans le château ou chercher '
@@ -22,17 +25,17 @@ INSERT INTO paragraphs (book_id, number, content) VALUES (
 -- Choices for paragraph 1
 INSERT INTO choices (paragraph_id, text, target_paragraph_number, display_order)
 SELECT p.id, 'Entrer dans le château', 2, 1 FROM paragraphs p
-JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire' AND p.number = 1
+JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire-demo' AND p.number = 1
 ON CONFLICT DO NOTHING;
 
 INSERT INTO choices (paragraph_id, text, target_paragraph_number, display_order)
 SELECT p.id, 'Chercher un autre chemin dans la forêt', 3, 2 FROM paragraphs p
-JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire' AND p.number = 1
+JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire-demo' AND p.number = 1
 ON CONFLICT DO NOTHING;
 
 -- Paragraph 2 - Enter the castle
 INSERT INTO paragraphs (book_id, number, content) VALUES (
-    (SELECT id FROM books WHERE slug = 'tombeau-vampire'),
+    (SELECT id FROM books WHERE slug = 'tombeau-vampire-demo'),
     2,
     'Vous poussez la lourde porte du château. Elle grince sinistrement. Dans l''entrée, vous apercevez '
     'un squelette animé qui garde le couloir. Il tourne la tête vers vous et dégaine son épée rouillée.'
@@ -49,12 +52,12 @@ SELECT p.id, 'Squelette Gardien', 8,
     ]'::jsonb,
     TRUE, 1, 4
 FROM paragraphs p
-JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire' AND p.number = 2
+JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire-demo' AND p.number = 2
 ON CONFLICT DO NOTHING;
 
 -- Paragraph 3 - Forest path
 INSERT INTO paragraphs (book_id, number, content) VALUES (
-    (SELECT id FROM books WHERE slug = 'tombeau-vampire'),
+    (SELECT id FROM books WHERE slug = 'tombeau-vampire-demo'),
     3,
     'Vous vous enfoncez dans la forêt. Le chemin serpente entre des arbres tordus. Après une longue '
     'marche, vous débouchez sur une clairière. Une vieille cabane y est abandonnée. '
@@ -63,12 +66,12 @@ INSERT INTO paragraphs (book_id, number, content) VALUES (
 
 INSERT INTO choices (paragraph_id, text, target_paragraph_number, display_order)
 SELECT p.id, 'Entrer dans la cabane', 5, 1 FROM paragraphs p
-JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire' AND p.number = 3
+JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire-demo' AND p.number = 3
 ON CONFLICT DO NOTHING;
 
 -- Paragraph 4 - After defeating skeleton
 INSERT INTO paragraphs (book_id, number, content) VALUES (
-    (SELECT id FROM books WHERE slug = 'tombeau-vampire'),
+    (SELECT id FROM books WHERE slug = 'tombeau-vampire-demo'),
     4,
     'Vous avez vaincu le squelette. Ses ossements s''éparpillent sur le sol de pierre. Un couloir s''ouvre devant vous. '
     'Vous pouvez entendre de l''eau couler quelque part plus loin.'
@@ -76,12 +79,12 @@ INSERT INTO paragraphs (book_id, number, content) VALUES (
 
 INSERT INTO choices (paragraph_id, text, target_paragraph_number, display_order)
 SELECT p.id, 'Avancer dans le couloir', 6, 1 FROM paragraphs p
-JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire' AND p.number = 4
+JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire-demo' AND p.number = 4
 ON CONFLICT DO NOTHING;
 
 -- Paragraph 5 - Victory ending (simplified)
 INSERT INTO paragraphs (book_id, number, content, is_final, final_type) VALUES (
-    (SELECT id FROM books WHERE slug = 'tombeau-vampire'),
+    (SELECT id FROM books WHERE slug = 'tombeau-vampire-demo'),
     5,
     'Vous vous reposez dans la cabane. Au petit matin, vous repartez vers d''autres aventures. '
     'Vous avez évité le château maudit, mais le vampire y règne toujours...',
@@ -90,7 +93,7 @@ INSERT INTO paragraphs (book_id, number, content, is_final, final_type) VALUES (
 
 -- Paragraph 6 - Continue the adventure
 INSERT INTO paragraphs (book_id, number, content) VALUES (
-    (SELECT id FROM books WHERE slug = 'tombeau-vampire'),
+    (SELECT id FROM books WHERE slug = 'tombeau-vampire-demo'),
     6,
     'Le couloir débouche sur une grande salle. Au centre, un sarcophage en pierre trône sur une estrade. '
     'Une inscription gravée avertit : "Ici repose le Seigneur des Ténèbres. Que celui qui le réveille '
@@ -99,17 +102,17 @@ INSERT INTO paragraphs (book_id, number, content) VALUES (
 
 INSERT INTO choices (paragraph_id, text, target_paragraph_number, display_order)
 SELECT p.id, 'Ouvrir le sarcophage', 7, 1 FROM paragraphs p
-JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire' AND p.number = 6
+JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire-demo' AND p.number = 6
 ON CONFLICT DO NOTHING;
 
 INSERT INTO choices (paragraph_id, text, target_paragraph_number, display_order)
 SELECT p.id, 'Faire demi-tour et fuir le château', 8, 2 FROM paragraphs p
-JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire' AND p.number = 6
+JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire-demo' AND p.number = 6
 ON CONFLICT DO NOTHING;
 
 -- Paragraph 7 - Vampire final boss
 INSERT INTO paragraphs (book_id, number, content) VALUES (
-    (SELECT id FROM books WHERE slug = 'tombeau-vampire'),
+    (SELECT id FROM books WHERE slug = 'tombeau-vampire-demo'),
     7,
     'Le couvercle du sarcophage se soulève dans un nuage de poussière. Le Vampire se lève, ses yeux '
     'brillant d''une lueur rouge sang. "Tu oses pénétrer dans ma demeure ? Tu vas le payer de ta vie !" '
@@ -128,12 +131,12 @@ SELECT p.id, 'Le Vampire Seigneur des Ténèbres', 20,
     ]'::jsonb,
     FALSE, 9
 FROM paragraphs p
-JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire' AND p.number = 7
+JOIN books b ON b.id = p.book_id WHERE b.slug = 'tombeau-vampire-demo' AND p.number = 7
 ON CONFLICT DO NOTHING;
 
 -- Paragraph 8 - Escape
 INSERT INTO paragraphs (book_id, number, content, is_final, final_type) VALUES (
-    (SELECT id FROM books WHERE slug = 'tombeau-vampire'),
+    (SELECT id FROM books WHERE slug = 'tombeau-vampire-demo'),
     8,
     'Vous fuyez le château en courant. Derrière vous, un rire sinistre résonne dans la nuit. '
     'Vous avez survécu, mais le vampire règne toujours sur ces terres maudites. '
@@ -143,7 +146,7 @@ INSERT INTO paragraphs (book_id, number, content, is_final, final_type) VALUES (
 
 -- Paragraph 9 - Final victory
 INSERT INTO paragraphs (book_id, number, content, is_final, final_type) VALUES (
-    (SELECT id FROM books WHERE slug = 'tombeau-vampire'),
+    (SELECT id FROM books WHERE slug = 'tombeau-vampire-demo'),
     9,
     'Le vampire s''effondre en poussière! Ses cendres se dispersent dans l''air. '
     'Un cri de triomphe vous échappe. Vous avez vaincu le Seigneur des Ténèbres! '
