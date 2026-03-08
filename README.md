@@ -129,9 +129,12 @@ Configurez les secrets suivants dans votre dépôt GitHub :
 | `SSH_USER`       | Nom d'utilisateur SSH AlwaysData                 |
 | `SSH_HOST`       | Nom d'hôte SSH AlwaysData                        |
 | `DEPLOY_PATH`    | Chemin absolu du dossier de déploiement          |
-| `DATABASE_URL`   | URL de connexion PostgreSQL (pour les migrations)|
 
-Chaque push sur `master` déclenche automatiquement le déploiement.
+Chaque push sur `master` déclenche automatiquement le déploiement des fichiers applicatifs.
+
+> **Note :** Les scripts de base de données (`db/schema.sql`, `db/seeds/`) ne sont **pas** appliqués
+> automatiquement lors du déploiement. Le mainteneur les applique manuellement selon les besoins
+> (évolutions du schéma ou des données).
 
 ---
 
