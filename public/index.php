@@ -57,6 +57,7 @@ $router->get('/admin/import',              fn() => (new AdminController())->impo
 $router->post('/admin/import',             fn() => (new AdminController())->importSql());
 $router->post('/admin/import/file',        fn() => (new AdminController())->importSqlFile());
 $router->post('/admin/books/(?P<id>\d+)/toggle-publish', fn($p) => (new AdminController())->togglePublish($p));
+$router->post('/admin/books/(?P<id>\d+)/delete',         fn($p) => (new AdminController())->deleteBook($p));
 
 // ── Dispatch ─────────────────────────────────────────────────────────────────
 $method   = $_SERVER['REQUEST_METHOD'];

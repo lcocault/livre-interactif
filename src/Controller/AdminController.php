@@ -136,4 +136,38 @@ class AdminController extends Controller
         $this->flash('success', 'Livre "' . htmlspecialchars($book['title']) . '" ' . $label . '.');
         $this->redirect('/admin');
     }
-}
+
+    public function deleteBook(array $params): void
+    {
+        $this->requireAdmin();
+        $this->validateCsrf();
+
+        $bookId = (int)$params['id'];
+        $book   = Book::find($bookId);
+        if (!$book) {
+            $this->notFound('Livre introuvable.');
+        }
+
+        try {
+            $db = Database::getConnection();
+            $db->beginTransaction();
+
+            // Delete reading sessions (cascades paragraph_history and combat_states)
+            $db->prepare('DELETE FROM reading_sessions WHERE book_id = :id')
+               ->execute([':id' => $bookId]);
+
+            // Delete the book (cascades paragraphs → choices and combat_encounters)
+            $db->prepare('DELETE FROM books WHERE id = :id')
+               ->execute([':id' => $bookId]);
+
+            $db->commit();
+            $this->flash('success', 'Livre "' . htmlspecialchars($book['title']) . '" supprimé définitivement.');
+        } catch (\PDOException $e) {
+            if ($db->inTransaction()) {
+                $db->rollBack();
+            }
+            $this->flash('danger', 'Erreur lors de la suppression : ' . $e->getMessage());
+        }
+
+        $this->redirect('/admin');
+    }

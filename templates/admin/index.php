@@ -82,6 +82,14 @@
                                 </form>
                                 <a href="<?= url('books/' . $book['slug']) ?>"
                                    class="btn btn-secondary btn-sm">Voir</a>
+                                <form method="POST"
+                                      action="<?= url('admin/books/' . $book['id'] . '/delete') ?>"
+                                      class="inline-form"
+                                      onsubmit="return confirm(<?= htmlspecialchars(json_encode('Supprimer définitivement le livre \'' . $book['title'] . '\' ainsi que toutes ses données ? Cette action est irréversible.'), ENT_QUOTES, 'UTF-8') ?>)">
+                                    <input type="hidden" name="_csrf"
+                                           value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
