@@ -53,8 +53,11 @@ psql -U <user> -d <database> -f db/schema.sql
 # Importer le système de jeu EHP
 psql -U <user> -d <database> -f db/seeds/game_system_ehp.sql
 
-# (Optionnel) Charger un exemple de livre
+# (Optionnel) Charger un exemple de livre (9 paragraphes, à des fins de démonstration)
 psql -U <user> -d <database> -f db/seeds/example_book.sql
+
+# (Optionnel) Charger le livre complet "Le Tombeau du Vampire" (290 paragraphes)
+psql -U <user> -d <database> -f db/seeds/tombeau_vampire.sql
 ```
 
 ### 4. Configurer le serveur web
@@ -95,7 +98,8 @@ livre-interactif/
 │   ├── schema.sql         # Schéma PostgreSQL complet
 │   └── seeds/
 │       ├── game_system_ehp.sql   # Système EHP
-│       └── example_book.sql      # Exemple de livre
+│       ├── example_book.sql      # Exemple de livre (9 paragraphes, démo)
+│       └── tombeau_vampire.sql   # "Le Tombeau du Vampire" (290 paragraphes, complet)
 ├── config/
 │   └── config.php.example # Modèle de configuration
 └── .github/workflows/
@@ -114,7 +118,8 @@ Le script doit :
 3. Insérer les choix de navigation dans `choices`
 4. Insérer les rencontres de combat dans `combat_encounters` (si applicable)
 
-Consultez `db/seeds/example_book.sql` pour un exemple complet.
+Consultez `db/seeds/tombeau_vampire.sql` pour un exemple complet (290 paragraphes),
+ou `db/seeds/example_book.sql` pour un exemple minimal (9 paragraphes, démo).
 
 ---
 
