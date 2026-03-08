@@ -131,7 +131,7 @@ Configurez les secrets suivants dans votre dépôt GitHub :
 | `DEPLOY_PATH`    | Chemin absolu du dossier de déploiement          |
 | `DATABASE_URL`   | URL de connexion PostgreSQL (pour les migrations)|
 
-Chaque push sur `main` déclenche automatiquement le déploiement.
+Chaque push sur `master` déclenche automatiquement le déploiement.
 
 ---
 
