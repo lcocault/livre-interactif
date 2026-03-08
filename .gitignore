@@ -1,0 +1,15 @@
+# Configuration (contains secrets — never commit)
+config/config.php
+
+# Composer dependencies
+vendor/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# PHP logs
+*.log
