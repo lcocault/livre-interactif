@@ -46,7 +46,7 @@ INSERT INTO game_systems (name, slug, description, config) VALUES (
             "Poignard",
             "Épée",
             "Armure",
-            "Gourde d'\''eau fraîche",
+            "Gourde d''eau fraîche",
             "Sac à dos"
         ],
         "combat": {
@@ -71,7 +71,7 @@ INSERT INTO game_systems (name, slug, description, config) VALUES (
             "compare_mode": "gt",
             "fail_damage": 3,
             "fail_stat": "ENDURANCE",
-            "description": "Jetez deux dés. Si le résultat est supérieur à votre Habileté, vous recevez un coup dans le dos et perdez 3 points d'\''Endurance."
+            "description": "Jetez deux dés. Si le résultat est supérieur à votre Habileté, vous recevez un coup dans le dos et perdez 3 points d''Endurance."
         },
         "death_condition": {
             "stat": "ENDURANCE",
