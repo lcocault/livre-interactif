@@ -13,7 +13,7 @@
     <h1>Livres Dont Vous Êtes Le Héros</h1>
     <p class="hero-subtitle">
         Plongez dans des aventures interactives. Chaque décision compte.
-        Votre courage, votre habileté et votre psi seront mis à rude épreuve.
+        Votre courage, votre Habileté et votre Psi seront mis à rude épreuve.
     </p>
     <?php if (!isset($_SESSION['user_id'])): ?>
         <div class="hero-actions">

@@ -38,8 +38,8 @@ class AdminController extends Controller
             $this->redirect('/admin/import');
         }
 
-        // Basic safety: disallow dangerous statements
-        $forbidden = ['DROP ', 'TRUNCATE ', 'DELETE FROM users', 'ALTER TABLE', 'GRANT ', 'REVOKE '];
+        // Basic safety: disallow dangerous/destructive statements
+        $forbidden = ['DROP ', 'TRUNCATE ', 'DELETE ', 'ALTER TABLE', 'GRANT ', 'REVOKE ', 'CREATE USER', 'DROP USER'];
         foreach ($forbidden as $keyword) {
             if (stripos($sql, $keyword) !== false) {
                 $this->flash('danger', 'Le script SQL contient des instructions non autorisées (' . htmlspecialchars($keyword) . ').');
@@ -90,7 +90,7 @@ class AdminController extends Controller
         }
 
         // Reuse the same safety check
-        $forbidden = ['DROP ', 'TRUNCATE ', 'DELETE FROM users', 'ALTER TABLE', 'GRANT ', 'REVOKE '];
+        $forbidden = ['DROP ', 'TRUNCATE ', 'DELETE ', 'ALTER TABLE', 'GRANT ', 'REVOKE ', 'CREATE USER', 'DROP USER'];
         foreach ($forbidden as $keyword) {
             if (stripos($sql, $keyword) !== false) {
                 $this->flash('danger', 'Le script SQL contient des instructions non autorisées (' . htmlspecialchars($keyword) . ').');
