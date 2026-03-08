@@ -59,8 +59,17 @@ $router->post('/admin/import/file',        fn() => (new AdminController())->impo
 $router->post('/admin/books/(?P<id>\d+)/toggle-publish', fn($p) => (new AdminController())->togglePublish($p));
 
 // ── Dispatch ─────────────────────────────────────────────────────────────────
-$method = $_SERVER['REQUEST_METHOD'];
-$uri    = $_SERVER['REQUEST_URI'];
+$method   = $_SERVER['REQUEST_METHOD'];
+$rawUri   = $_SERVER['REQUEST_URI'];
+
+// Strip the app base path so the router always sees paths like /register,
+// regardless of whether the app is hosted at / or at /livres-interactifs.
+$basePath = rtrim(parse_url(APP_CONFIG['app']['url'] ?? '', PHP_URL_PATH) ?: '', '/');
+if ($basePath !== '' && strncmp($rawUri, $basePath, strlen($basePath)) === 0) {
+    $uri = substr($rawUri, strlen($basePath)) ?: '/';
+} else {
+    $uri = $rawUri;
+}
 
 if (!$router->dispatch($method, $uri)) {
     http_response_code(404);
