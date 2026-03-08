@@ -36,17 +36,5 @@ jobs:
             --exclude='.env*' \
             . ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}
 
-      # ── Run database migrations ──────────────────────────────────────────────
-      - name: Apply database schema
-        run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "psql ${{ secrets.DATABASE_URL }} -f ${{ secrets.DEPLOY_PATH }}/db/schema.sql"
-
-      # ── Seed game system data (idempotent – uses ON CONFLICT DO NOTHING) ─────
-      - name: Seed EHP game system
-        run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "psql ${{ secrets.DATABASE_URL }} -f ${{ secrets.DEPLOY_PATH }}/db/seeds/game_system_ehp.sql"
-
       - name: Deployment complete
         run: echo "✅ Deployment finished successfully."
