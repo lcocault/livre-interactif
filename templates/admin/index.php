@@ -15,7 +15,7 @@
 <?php endforeach; ?>
 
 <div class="admin-nav">
-    <a href="/admin/import" class="btn btn-primary">📥 Importer SQL</a>
+    <a href="<?= url('admin/import') ?>" class="btn btn-primary">📥 Importer SQL</a>
 </div>
 
 <div class="admin-sections">
@@ -72,7 +72,7 @@
                             <td><?= date('d/m/Y', strtotime($book['created_at'])) ?></td>
                             <td>
                                 <form method="POST"
-                                      action="/admin/books/<?= $book['id'] ?>/toggle-publish"
+                                      action="<?= url('admin/books/' . $book['id'] . '/toggle-publish') ?>"
                                       class="inline-form">
                                     <input type="hidden" name="_csrf"
                                            value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
@@ -80,7 +80,7 @@
                                         <?= $book['is_published'] ? 'Dépublier' : 'Publier' ?>
                                     </button>
                                 </form>
-                                <a href="/books/<?= htmlspecialchars($book['slug']) ?>"
+                                <a href="<?= url('books/' . $book['slug']) ?>"
                                    class="btn btn-secondary btn-sm">Voir</a>
                             </td>
                         </tr>

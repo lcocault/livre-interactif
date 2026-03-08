@@ -126,10 +126,10 @@ $characterDead    = !$character['is_alive'];
                     <h2>🏆 Félicitations !</h2>
                     <p>Vous avez accompli votre quête avec succès !</p>
                 <?php endif; ?>
-                <a href="/books/<?= htmlspecialchars($book['slug']) ?>" class="btn btn-primary">
+                <a href="<?= url('books/' . $book['slug']) ?>" class="btn btn-primary">
                     Retour au livre
                 </a>
-                <a href="/" class="btn btn-secondary">Accueil</a>
+                <a href="<?= url('') ?>" class="btn btn-secondary">Accueil</a>
             </div>
 
         <?php elseif ($activeCombat && !$activeCombat['is_completed']): ?>
@@ -187,7 +187,7 @@ $characterDead    = !$character['is_alive'];
                 <?php endif; ?>
 
                 <div class="combat-actions">
-                    <form method="POST" action="/combat/<?= $session['id'] ?>/round">
+                    <form method="POST" action="<?= url('combat/' . $session['id'] . '/round') ?>">
                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                         <input type="hidden" name="combat_state_id" value="<?= $activeCombat['id'] ?>">
                         <button type="submit" class="btn btn-danger btn-lg">
@@ -196,7 +196,7 @@ $characterDead    = !$character['is_alive'];
                     </form>
 
                     <?php if ($activeCombat['flee_allowed']): ?>
-                        <form method="POST" action="/combat/<?= $session['id'] ?>/flee">
+                        <form method="POST" action="<?= url('combat/' . $session['id'] . '/flee') ?>">
                             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                             <input type="hidden" name="combat_state_id" value="<?= $activeCombat['id'] ?>">
                             <button type="submit" class="btn btn-warning"
@@ -214,7 +214,7 @@ $characterDead    = !$character['is_alive'];
                 <div class="encounter-box">
                     <h3>⚔ Rencontre : <?= htmlspecialchars($enc['creature_name']) ?></h3>
                     <p>Endurance : <strong><?= $enc['endurance'] ?></strong></p>
-                    <form method="POST" action="/combat/<?= $session['id'] ?>/start">
+                    <form method="POST" action="<?= url('combat/' . $session['id'] . '/start') ?>">
                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                         <input type="hidden" name="encounter_id" value="<?= $enc['id'] ?>">
                         <button type="submit" class="btn btn-danger">⚔ Engager le combat</button>
@@ -228,7 +228,7 @@ $characterDead    = !$character['is_alive'];
                 <h3>Que décidez-vous ?</h3>
                 <div class="choices-list">
                     <?php foreach ($choices as $choice): ?>
-                        <form method="POST" action="/read/<?= $session['id'] ?>/navigate">
+                        <form method="POST" action="<?= url('read/' . $session['id'] . '/navigate') ?>">
                             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                             <input type="hidden" name="target_paragraph"
                                    value="<?= (int)$choice['target_paragraph_number'] ?>">

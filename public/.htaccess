@@ -1,6 +1,8 @@
 Options -MultiViews
 RewriteEngine On
-RewriteBase /
+# When hosting the app under a subpath (e.g. /livres-interactifs) set the base here.
+# Update this to match your configured `APP_CONFIG['app']['url']` path.
+RewriteBase /livres-interactifs/
 
 # Serve existing files/directories directly
 RewriteCond %{REQUEST_FILENAME} !-f

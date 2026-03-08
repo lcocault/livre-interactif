@@ -20,7 +20,7 @@
 <?php else: ?>
     <div class="character-create-layout">
         <div class="character-create-form">
-            <form method="POST" action="/characters" id="character-form">
+            <form method="POST" action="<?= url('characters') ?>" id="character-form">
                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
 
                 <div class="form-group">
@@ -66,7 +66,7 @@
                     <button type="submit" class="btn btn-primary btn-lg">
                         ✓ Créer ce personnage
                     </button>
-                    <a href="/characters" class="btn btn-secondary">Annuler</a>
+                    <a href="<?= url('characters') ?>" class="btn btn-secondary">Annuler</a>
                 </div>
             </form>
         </div>
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
         rollBtn.disabled = true;
         rollBtn.textContent = '⏳ Lancement...';
 
-        fetch('/characters/roll-stats?system_id=' + systemId)
+        fetch('<?= url('characters/roll-stats') ?>?system_id=' + systemId)
             .then(r => r.json())
             .then(data => {
                 displayStats(data);

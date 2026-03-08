@@ -17,8 +17,8 @@
     </p>
     <?php if (!isset($_SESSION['user_id'])): ?>
         <div class="hero-actions">
-            <a href="/register" class="btn btn-primary">Commencer l'aventure</a>
-            <a href="/login" class="btn btn-secondary">Se connecter</a>
+            <a href="<?= url('register') ?>" class="btn btn-primary">Commencer l'aventure</a>
+            <a href="<?= url('login') ?>" class="btn btn-secondary">Se connecter</a>
         </div>
     <?php endif; ?>
 </section>
@@ -49,7 +49,7 @@
                         <?php if ($book['description']): ?>
                             <p class="book-description"><?= nl2br(htmlspecialchars($book['description'])) ?></p>
                         <?php endif; ?>
-                        <a href="/books/<?= htmlspecialchars($book['slug']) ?>" class="btn btn-primary">
+                        <a href="<?= url('books/' . $book['slug']) ?>" class="btn btn-primary">
                             Lire ce livre
                         </a>
                     </div>
@@ -70,10 +70,10 @@
                 <?php if (!$char['is_alive']): ?>
                     <span class="badge badge-danger">Mort</span>
                 <?php endif; ?>
-                <a href="/characters/<?= $char['id'] ?>" class="btn btn-secondary btn-sm">Feuille</a>
+                <a href="<?= url('characters/' . $char['id']) ?>" class="btn btn-secondary btn-sm">Feuille</a>
             </div>
         <?php endforeach; ?>
-        <a href="/characters/create" class="btn btn-primary">+ Nouveau personnage</a>
+        <a href="<?= url('characters/create') ?>" class="btn btn-primary">+ Nouveau personnage</a>
     </div>
 </section>
 <?php endif; ?>

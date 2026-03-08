@@ -17,7 +17,7 @@
     <div class="empty-state">
         <p>Aucun livre disponible pour le moment.</p>
         <?php if (!empty($_SESSION['is_admin'])): ?>
-            <a href="/admin/import" class="btn btn-primary">Importer un livre</a>
+            <a href="<?= url('admin/import') ?>" class="btn btn-primary">Importer un livre</a>
         <?php endif; ?>
     </div>
 <?php else: ?>
@@ -40,7 +40,7 @@
                     <?php if ($book['description']): ?>
                         <p class="book-description"><?= nl2br(htmlspecialchars($book['description'])) ?></p>
                     <?php endif; ?>
-                    <a href="/books/<?= htmlspecialchars($book['slug']) ?>" class="btn btn-primary">
+                    <a href="<?= url('books/' . $book['slug']) ?>" class="btn btn-primary">
                         Lire ce livre
                     </a>
                 </div>

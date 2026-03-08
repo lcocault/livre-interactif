@@ -16,7 +16,7 @@
                 <span class="badge badge-danger badge-lg">💀 Personnage décédé</span>
             <?php endif; ?>
         </div>
-        <a href="/characters" class="btn btn-secondary">&larr; Mes personnages</a>
+        <a href="<?= url('characters') ?>" class="btn btn-secondary">&larr; Mes personnages</a>
     </div>
 
     <?php foreach ($flash as $msg): ?>
@@ -88,7 +88,7 @@
                             <?php endif; ?>
                             <?php if ($character['is_alive']): ?>
                                 <form method="POST"
-                                      action="/characters/<?= $character['id'] ?>/inventory/<?= $item['id'] ?>/remove"
+                                      action="<?= url('characters/' . $character['id'] . '/inventory/' . $item['id'] . '/remove') ?>"
                                       class="inline-form">
                                     <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                                     <button type="submit" class="btn-icon btn-danger-sm"
@@ -104,7 +104,7 @@
             <?php if ($character['is_alive']): ?>
                 <details class="add-item-details">
                     <summary>+ Ajouter un objet</summary>
-                    <form method="POST" action="/characters/<?= $character['id'] ?>/inventory"
+                    <form method="POST" action="<?= url('characters/' . $character['id'] . '/inventory') ?>"
                           class="add-item-form">
                         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
                         <div class="form-group">
@@ -159,7 +159,7 @@
                             </td>
                             <td>
                                 <?php if (!$sess['completed_at'] && $character['is_alive']): ?>
-                                    <a href="/read/<?= $sess['id'] ?>/<?= $sess['current_paragraph_number'] ?>"
+                                    <a href="<?= url('read/' . $sess['id'] . '/' . $sess['current_paragraph_number']) ?>"
                                        class="btn btn-primary btn-sm">Reprendre</a>
                                 <?php endif; ?>
                             </td>

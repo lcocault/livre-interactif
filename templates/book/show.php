@@ -37,18 +37,18 @@
 
     <?php if (!isset($_SESSION['user_id'])): ?>
         <div class="alert alert-info">
-            <a href="/login">Connectez-vous</a> ou
-            <a href="/register">inscrivez-vous</a> pour commencer à lire.
+            <a href="<?= url('login') ?>">Connectez-vous</a> ou
+            <a href="<?= url('register') ?>">inscrivez-vous</a> pour commencer à lire.
         </div>
     <?php elseif (empty($characters)): ?>
         <div class="alert alert-info">
             Vous n'avez pas encore de personnage compatible avec ce système de jeu.
-            <a href="/characters/create">Créez-en un</a> pour commencer l'aventure.
+            <a href="<?= url('characters/create') ?>">Créez-en un</a> pour commencer l'aventure.
         </div>
     <?php else: ?>
         <div class="start-reading">
             <h2>Commencer l'aventure</h2>
-            <form method="POST" action="/books/<?= htmlspecialchars($book['slug']) ?>/start">
+                <form method="POST" action="<?= url('books/' . $book['slug'] . '/start') ?>">
                 <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
 
                 <div class="form-group">

@@ -11,7 +11,7 @@
         </div>
     <?php endforeach; ?>
 
-    <form method="POST" action="/register" class="auth-form">
+    <form method="POST" action="<?= url('register') ?>" class="auth-form">
         <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
 
         <div class="form-group">
@@ -41,5 +41,5 @@
         <button type="submit" class="btn btn-primary btn-block">S'inscrire</button>
     </form>
 
-    <p class="auth-link">Déjà un compte ? <a href="/login">Se connecter</a></p>
+    <p class="auth-link">Déjà un compte ? <a href="<?= url('login') ?>">Se connecter</a></p>
 </div>

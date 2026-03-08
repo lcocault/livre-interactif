@@ -4,7 +4,7 @@
 ?>
 <div class="page-header">
     <h1>Mes Personnages</h1>
-    <a href="/characters/create" class="btn btn-primary">+ Créer un personnage</a>
+    <a href="<?= url('characters/create') ?>" class="btn btn-primary">+ Créer un personnage</a>
 </div>
 
 <?php foreach ($flash as $msg): ?>
@@ -16,7 +16,7 @@
 <?php if (empty($characters)): ?>
     <div class="empty-state">
         <p>Vous n'avez pas encore de personnage.</p>
-        <a href="/characters/create" class="btn btn-primary">Créer mon premier personnage</a>
+        <a href="<?= url('characters/create') ?>" class="btn btn-primary">Créer mon premier personnage</a>
     </div>
 <?php else: ?>
     <div class="characters-grid">
@@ -32,7 +32,7 @@
                 </div>
                 <p class="character-system"><?= htmlspecialchars($char['game_system_name']) ?></p>
                 <p class="character-date">Créé le <?= date('d/m/Y', strtotime($char['created_at'])) ?></p>
-                <a href="/characters/<?= $char['id'] ?>" class="btn btn-secondary btn-sm">
+                <a href="<?= url('characters/' . $char['id']) ?>" class="btn btn-secondary btn-sm">
                     Voir la feuille
                 </a>
             </div>

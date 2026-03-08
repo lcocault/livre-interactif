@@ -4,7 +4,7 @@
 ?>
 <div class="page-header">
     <h1>📥 Importer un script SQL</h1>
-    <a href="/admin" class="btn btn-secondary">&larr; Admin</a>
+    <a href="<?= url('admin') ?>" class="btn btn-secondary">&larr; Admin</a>
 </div>
 
 <?php foreach ($flash as $msg): ?>
@@ -18,7 +18,7 @@
     <section class="import-section">
         <h2>Téléverser un fichier SQL</h2>
         <p>Importez un fichier <code>.sql</code> depuis votre ordinateur.</p>
-        <form method="POST" action="/admin/import/file" enctype="multipart/form-data">
+        <form method="POST" action="<?= url('admin/import/file') ?>" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
             <div class="form-group">
                 <label for="sql_file">Fichier SQL</label>
@@ -32,7 +32,7 @@
     <section class="import-section">
         <h2>Coller un script SQL</h2>
         <p>Collez directement votre script SQL dans la zone ci-dessous.</p>
-        <form method="POST" action="/admin/import">
+        <form method="POST" action="<?= url('admin/import') ?>">
             <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrf) ?>">
             <div class="form-group">
                 <label for="sql">Script SQL</label>

@@ -47,6 +47,14 @@ if (!file_exists($configFile)) {
 
 define('APP_CONFIG', $config);
 
+// ── URL helper ───────────────────────────────────────────────────────────────
+// Prepends the configured app sub-path so links work under any URL prefix.
+// url('login') → '/livres-interactifs/login'  (or '/login' when hosted at root)
+function url(string $path = ''): string {
+    $base = rtrim(parse_url(APP_CONFIG['app']['url'] ?? '', PHP_URL_PATH) ?: '', '/');
+    return $base . '/' . ltrim($path, '/');
+}
+
 // ── Start session ────────────────────────────────────────────────────────────
 $sessionName = $config['app']['session_name'] ?? 'livre_interactif_session';
 session_name($sessionName);

@@ -27,7 +27,7 @@ abstract class Controller
     /** Redirect to a URL and stop execution. */
     protected function redirect(string $url): void
     {
-        header('Location: ' . $url, true, 302);
+        header('Location: ' . url($url), true, 302);
         exit;
     }
 
